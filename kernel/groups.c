@@ -228,7 +228,8 @@ bool may_setgroups(void)
 {
 	struct user_namespace *user_ns = current_user_ns();
 
-	return ns_capable(user_ns, CAP_SETGID);
+	return ns_capable(user_ns, CAP_SETGID) &&
+		userns_may_setgroups(user_ns);
 }
 
 /*
