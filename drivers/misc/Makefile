@@ -86,3 +86,4 @@ obj-$(CONFIG_DM_VERITY)		+= dmverity_query.o
 # IrDA FPGA
 obj-$(CONFIG_SEC_FPGA_ICE40XX)  += ice40xx.o
 
+obj-$(CONFIG_UID_SYS_STATS) += uid_sys_stats.o

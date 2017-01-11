@@ -554,7 +554,7 @@ config TIMA_LOG
 	depends on TIMA
 	default y
 	help
-		This option enables support for dumping TIMA log.
+          This option enables support for dumping TIMA log.
 
 config SEC_FPGA_ICE40XX
         tristate "this feature allows FPGA_ICE40XX"
@@ -564,6 +564,15 @@ config SEC_FPGA_ICE40XX
           Lattice FPGA can support IR LED.
           To compile this driver as a module, choose M here.
           If unsure, say N.
+	  This option enables support for dumping TIMA log.
+
+config UID_SYS_STATS
+	tristate "Per-UID statistics"
+	depends on PROFILING
+	default y
+	help
+	  Per UID based cpu time statistics exported to /proc/uid_cputime
+	  Per UID based io statistics exported to /proc/uid_io
 
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
