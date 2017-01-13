@@ -381,15 +381,7 @@ int crypto_register_alg(struct crypto_alg *alg)
 	struct crypto_larval *larval;
 	int err;
 
-#ifdef CONFIG_CRYPTO_FIPS
-	if (unlikely(in_fips_err())) {
-		printk(KERN_ERR
-			"Unable to registrer alg: %s because of FIPS ERROR\n"
-			, alg->cra_name);
-		return -EACCES;
-	}
-#endif
-
+	alg->cra_flags &= ~CRYPTO_ALG_DEAD;
 	err = crypto_check_alg(alg);
 	if (err)
 		return err;
