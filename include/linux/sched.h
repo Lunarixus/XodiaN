@@ -1209,6 +1209,7 @@ struct task_struct {
 	cputime_t gtime;
 	atomic64_t *time_in_state;
 	unsigned int max_states;
+	unsigned long long cpu_power;
 #ifndef CONFIG_VIRT_CPU_ACCOUNTING_NATIVE
 	struct cputime prev_cputime;
 #endif
