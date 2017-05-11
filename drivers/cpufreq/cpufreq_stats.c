@@ -677,13 +677,13 @@ static void cpufreq_powerstats_free(void)
 }
 
 static int cpufreq_stats_create_table(struct cpufreq_policy *policy,
-		struct cpufreq_frequency_table *table, int count)
+	int cpu, struct cpufreq_frequency_table *table, int count)
 {
 	unsigned int i, j, ret = 0;
 	struct cpufreq_stats *stat;
 	struct cpufreq_policy *data;
-	size_t alloc_size;
 	unsigned int cpu = policy->cpu;
+	unsigned int alloc_size;
 	struct cpufreq_stats *prev_stat = per_cpu(prev_cpufreq_stats_table, cpu);
 
 	if (per_cpu(cpufreq_stats_table, cpu))
@@ -702,8 +702,6 @@ static int cpufreq_stats_create_table(struct cpufreq_policy *policy,
 	}
 
 	ret = sysfs_create_group(&data->kobj, &stats_attr_group);
-	if (ret)
-		goto error_out;
 
 	stat->cpu = cpu;
 	per_cpu(cpufreq_stats_table, cpu) = stat;
@@ -897,14 +895,9 @@ static void free_all_freq_table(void)
 
 static void add_all_freq_table(unsigned int freq)
 {
-<<<<<<< HEAD
-	size_t size;
-	size = sizeof(unsigned int) * (all_freq_table->table_size + 1);
-=======
 	unsigned int size;
 	size = sizeof(all_freq_table->freq_table[0]) *
 		(all_freq_table->table_size + 1);
->>>>>>> 12473bd6bb1... ANDROID: cpufreq_stat: add per task/uid/freq stats
 	all_freq_table->freq_table = krealloc(all_freq_table->freq_table,
 			size, GFP_ATOMIC);
 	if (IS_ERR(all_freq_table->freq_table)) {
@@ -999,7 +992,7 @@ static int cpufreq_stat_notifier_policy(struct notifier_block *nb,
 	if (!per_cpu(cpufreq_power_stats, cpu))
 		cpufreq_powerstats_create(cpu, table, count);
 
-	ret = cpufreq_stats_create_table(policy, table, count);
+	ret = cpufreq_stats_create_table(policy, cpu, table, count);
 	if (ret)
 		return ret;
 	return 0;
@@ -1143,7 +1136,7 @@ static int cpufreq_stats_create_table_cpu(unsigned int cpu)
 	if (!per_cpu(cpufreq_power_stats, cpu))
 		cpufreq_powerstats_create(cpu, table, count);
 
-	ret = cpufreq_stats_create_table(policy, table, count);
+	ret = cpufreq_stats_create_table(policy, cpu, table, count);
 
 out:
 	cpufreq_cpu_put(policy);
@@ -1240,20 +1233,12 @@ static int cpufreq_stats_setup(void)
 	if (ret)
 		pr_warn("Cannot create sysfs file for cpufreq current stats\n");
 
-<<<<<<< HEAD
-	create_bL_freq_table();
-	ret = sysfs_create_file(cpufreq_global_kobject,
-		&_attr_bL_all_time_in_state.attr);
-	if (ret)
-		pr_warn("Error creating sysfs file for bL cpufreq stats\n");
-=======
 	proc_create_data("uid_time_in_state", 0444, NULL,
 		&uid_time_in_state_fops, NULL);
 
 	profile_event_register(PROFILE_TASK_EXIT, &process_notifier_block);
 
 	cpufreq_all_freq_init = true;
->>>>>>> 12473bd6bb1... ANDROID: cpufreq_stat: add per task/uid/freq stats
 
 	return 0;
 }
