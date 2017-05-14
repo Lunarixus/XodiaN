@@ -1540,17 +1540,8 @@ int fiemap_check_flags(struct fiemap_extent_info *fieinfo, u32 fs_flags);
 typedef int (*filldir_t)(void *, const char *, int, loff_t, u64, unsigned);
 
 struct dir_context {
-	const filldir_t actor;
-	loff_t pos;
-	bool romnt;
+	filldir_t actor;
 };
-
-static inline bool dir_emit(struct dir_context *ctx,
-			    const char *name, int namelen,
-			    u64 ino, unsigned type)
-{
-	return ctx->actor(ctx, name, namelen, ctx->pos, ino, type) == 0;
-}
 
 struct block_device_operations;
 
@@ -2556,6 +2547,7 @@ loff_t inode_get_bytes(struct inode *inode);
 void inode_set_bytes(struct inode *inode, loff_t bytes);
 
 extern int vfs_readdir(struct file *, filldir_t, void *);
+extern int iterate_dir(struct file *, struct dir_context *);
 
 extern int vfs_stat(const char __user *, struct kstat *);
 extern int vfs_lstat(const char __user *, struct kstat *);
