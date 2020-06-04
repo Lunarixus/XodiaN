@@ -2162,7 +2162,6 @@ bool tcp_write_xmit(struct sock *sk, unsigned int mss_now, int nonagle,
 						    min_t(unsigned int,
 							  cwnd_quota,
 							  sk->sk_gso_max_segs));
-#endif
 
 		if (skb->len > limit &&
 		    unlikely(tso_fragment(sk, skb, limit, mss_now, gfp)))
