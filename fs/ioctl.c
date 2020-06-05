@@ -609,11 +609,6 @@ int do_vfs_ioctl(struct file *filp, unsigned int fd, unsigned int cmd,
 			goto err;
 		}
 
-		error = vfs_path_lookup(filp->f_dentry, filp->f_path.mnt,
-				data->d, LOOKUP_CASE_INSENSITIVE, &p);
-		if (error)
-			goto err;
-
 		error = copy_to_user((struct ci_lookup_data __user *)arg,
 				p.dentry->d_name.name,
 				strlen(p.dentry->d_name.name)) ? -EFAULT : 0;
