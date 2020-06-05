@@ -120,18 +120,6 @@ static inline u64 get_cpu_idle_time_jiffy(unsigned int cpu, u64 *wall)
 	return cputime_to_usecs(idle_time);
 }
 
-u64 get_cpu_idle_time(unsigned int cpu, u64 *wall, int io_busy)
-{
-	u64 idle_time = get_cpu_idle_time_us(cpu, io_busy ? wall : NULL);
-
-	if (idle_time == -1ULL)
-		return get_cpu_idle_time_jiffy(cpu, wall);
-	else if (!io_busy)
-		idle_time += get_cpu_iowait_time_us(cpu, wall);
-
-	return idle_time;
-}
-
 static void observer_load_start(struct observer_cpuinfo *pcpu, int cpu, bool io_busy)
 {
 	pcpu->time_in_idle =
