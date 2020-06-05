@@ -4358,9 +4358,6 @@ out_free_base:
 static void ext4_init_journal_params(struct super_block *sb, journal_t *journal)
 {
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
-#ifdef CONFIG_JOURNAL_DATA_TAG
-	struct hd_struct *part;
-#endif
 
 	journal->j_commit_interval = sbi->s_commit_interval;
 	journal->j_min_batch_time = sbi->s_min_batch_time;
