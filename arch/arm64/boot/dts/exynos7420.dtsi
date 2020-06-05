@@ -91,13 +91,13 @@
 					compatible = "android,system";
 					dev = "/dev/block/platform/15570000.ufs/by-name/SYSTEM";
 					type = "ext4";
-					mnt_flags = "ro,noatime,noauto_da_alloc,discard,data=ordered,errors=panic";
+					mnt_flags = "ro,errors=panic,noload";
 					fsmgr_flags = "wait";
 					status = "ok";
 				};
 			};
 		};
-	};
+	};	
 
 	cpus {
 		#address-cells = <2>;
@@ -1031,7 +1031,7 @@
 		clocks = <&clock 180>, <&clock 187>, <&clock 186>;
 		clock-names = "biu", "dout_mmc_a", "gate_ciu";
 		status = "disabled";
-	 };
+	};
 
 	dwmmc_2: dwmmc2@15560000 {
 		compatible = "samsung,exynos7420-dw-mshc";
