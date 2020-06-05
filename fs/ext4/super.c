@@ -4376,22 +4376,6 @@ static void ext4_init_journal_params(struct super_block *sb, journal_t *journal)
 	else
 		journal->j_flags &= ~JBD2_ABORT_ON_SYNCDATA_ERR;
 
-#ifdef CONFIG_JOURNAL_DATA_TAG
-	part = sb->s_bdev->bd_part;
-	if (part->info && !strncmp(part->info->volname, "USERDATA", 8)) {
-		journal->j_flags |= JBD2_JOURNAL_TAG;
-		printk("Setting journal tag on volname[%s]\n", 
-			part->info->volname);
-	} else if (!part->info && journal->j_maxlen >= 32768) {
-		/* maybe dm device &&  journal size > 128MB */
-		journal->j_flags |= JBD2_JOURNAL_TAG;
-		printk("Setting journal tag on volname[(null)] "
-		       "journal size %u MB\n", journal->j_maxlen * 4 / 1024);
-	}
-	else
-		journal->j_flags &= ~JBD2_JOURNAL_TAG;
-#endif
-
 	write_unlock(&journal->j_state_lock);
 }
 
