@@ -3605,7 +3605,7 @@ static int tcp_ack(struct sock *sk,
 
 	if (tp->srtt != prior_rtt || tp->snd_cwnd != prior_cwnd)
 		tcp_update_pacing_rate(sk);
-#endif
+
 	return 1;
 
 no_queue:
