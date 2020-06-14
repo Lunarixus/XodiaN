@@ -20,7 +20,8 @@ obj-$(CONFIG_SEC_SYSFS)		+= sec_sysfs.o
 # Samsung Reset Feature
 obj-$(CONFIG_SEC_REBOOT)	+= sec_reboot.o
 # Samsung Debugging Feature
-obj-$(CONFIG_SEC_DEBUG)		+= sec_debug.o sec_getlog.o sec_gaf.o
+obj-$(CONFIG_SEC_DEBUG)		+= sec_getlog.o sec_gaf.o
+obj-y += sec_debug.o
 # Samsung Misc Feature
 obj-$(CONFIG_SEC_MISC)         += sec_misc.o
 obj-$(CONFIG_SEC_SLOW_MODE)	+= sec_slow.o

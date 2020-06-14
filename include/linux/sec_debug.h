@@ -81,7 +81,6 @@ extern void sec_debug_save_last_kmsg(unsigned char* head_ptr, unsigned char* cur
 #define sec_debug_save_last_kmsg(a, b)		do { } while(0)
 #endif
 
-#ifdef CONFIG_SEC_PARAM
 #define CM_OFFSET	0x700234
 #define CM_OFFSET_LIMIT	8
 enum
@@ -99,6 +98,5 @@ enum
 };
 
 int sec_set_param(unsigned long offset, char val);
-#endif
 
 #endif /* SEC_DEBUG_H */
