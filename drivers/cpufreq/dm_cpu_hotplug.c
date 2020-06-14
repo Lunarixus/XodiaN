@@ -547,7 +547,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 			goto blk_out;
 
 		if (cmd == CMD_SLEEP_PREPARE) {
-			dm_dbg("%s: 1, %s\n", __func__, cmddesc);
 			for (i = setup_max_cpus - 1; i >= NR_CLUST0_CPUS; i--) {
                                 if (cpu_online(i)) {
                                         ret = cpu_down(i);
@@ -555,7 +554,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
                                                 goto blk_out;
                                 }
 			}
-			dm_dbg("%s: 2, %s\n", __func__, cmddesc);
 			for (i = 1; i < nr_sleep_prepare_cpus; i++) {
 				if (!cpu_online(i)) {
 					ret = cpu_up(i);
@@ -565,7 +563,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 			}
 		}
 		else if (cmd == CMD_CLUST1_OUT && !in_low_power_mode) {
-			dm_dbg("%s: 3, %s\n", __func__, cmddesc);
 			for (i = setup_max_cpus - 1; i >= NR_CLUST0_CPUS; i--) {
 				if (cpu_online(i)) {
 					ret = cpu_down(i);
@@ -578,7 +575,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 				if (!in_low_power_mode)
 					goto blk_out;
 
-				dm_dbg("%s: 4, %s\n", __func__, cmddesc);
 				for (i = NR_CLUST0_CPUS - 2; i > 0; i--) {
 					if (cpu_online(i)) {
 						ret = cpu_down(i);
@@ -587,7 +583,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 					}
 				}
 			} else {
-				dm_dbg("%s: 5, %s\n", __func__, cmddesc);
 
 				if (cluster0_hotplug_in)
 					hotplug_out_limit = NR_CLUST0_CPUS - 2;
@@ -609,7 +604,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 			if (in_low_power_mode)
 				goto blk_out;
 
-			dm_dbg("%s: 6, %s\n", __func__, cmddesc);
 			for (i = NR_CLUST0_CPUS; i < setup_max_cpus; i++) {
 				if (!cpu_online(i)) {
 					ret = cpu_up(i);
@@ -619,7 +613,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 			}
 		} else {
 			if (cmd == CMD_CLUST0_ONE_IN) {
-				dm_dbg("%s: 7, %s\n", __func__, cmddesc);
 				for (i = 1; i < NR_CLUST0_CPUS - 1; i++) {
 					if (!cpu_online(i)) {
 						ret = cpu_up(i);
@@ -629,7 +622,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 				}
 			} else if ((cluster1_hotplugged && !do_disable_hotplug) ||
 				(cmd == CMD_CLUST0_IN)) {
-				dm_dbg("%s: 8, %s\n", __func__, cmddesc);
 				for (i = 1; i < NR_CLUST0_CPUS; i++) {
 					if (!cpu_online(i)) {
 						ret = cpu_up(i);
@@ -639,7 +631,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 				}
 			} else {
 				if (lcd_is_on) {
-					dm_dbg("%s: 9, %s\n", __func__, cmddesc);
 					for (i = NR_CLUST0_CPUS; i < setup_max_cpus; i++) {
 						if (do_hotplug_out)
 							goto blk_out;
@@ -654,7 +645,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 						}
 					}
 
-					dm_dbg("%s: 10, %s\n", __func__, cmddesc);
 					for (i = 1; i < NR_CLUST0_CPUS; i++) {
 						if (!cpu_online(i)) {
 							ret = cpu_up(i);
@@ -663,7 +653,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 						}
 					}
 				} else {
-					dm_dbg("%s: 11, %s\n", __func__, cmddesc);
 					for (i = 1; i < setup_max_cpus; i++) {
 						if (do_hotplug_out && i >= NR_CLUST0_CPUS)
 							goto blk_out;
@@ -683,7 +672,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 		if (do_disable_hotplug)
 			goto blk_out;
 
-		dm_dbg("%s: 12, %s\n", __func__, cmddesc);
 		for (i = setup_max_cpus - 1; i > 0; i--) {
 			if (cpu_online(i)) {
 				ret = cpu_down(i);
@@ -695,7 +683,6 @@ static int __ref __cpu_hotplug(bool out_flag, enum hotplug_cmd cmd)
 		if (in_suspend_prepared)
 			goto blk_out;
 
-		dm_dbg("%s: 13, %s\n", __func__, cmddesc);
 		for (i = 1; i < setup_max_cpus; i++) {
 			if (!cpu_online(i)) {
 				ret = cpu_up(i);
