@@ -1648,7 +1648,6 @@ static void __jbd2_journal_temp_unlink_buffer(struct journal_head *jh)
 		clear_buffer_jbddirty(bh);
 	else if (test_clear_buffer_jbddirty(bh))
 		mark_buffer_dirty_sync(bh); /* Expose it to the VM */
-	}
 }
 
 /*
