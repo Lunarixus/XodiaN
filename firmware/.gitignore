@@ -1,4 +1,5 @@
 *.gen.S
+*.fw
 *.bin
 *.csp
 *.dsp
